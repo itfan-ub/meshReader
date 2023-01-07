@@ -16,6 +16,14 @@ set(gladPath ${root}/extern/glad)
 include_directories(${gladPath}/include)
 add_library(glad STATIC ${gladPath}/src/glad.c)
 
+
+#----------Assimp----------
+set(assimpPath ${root}/extern/assimp)
+add_subdirectory(${assimpPath})
+include_directories(${assimpPath}/include)
+
+
+
 #----------Catch2----------
 include_directories(${root}/extern/Catch2/src)
 include_directories(${root}/build/extern/Catch2/generated-includes)
@@ -24,9 +32,9 @@ add_subdirectory(${root}/extern/Catch2)
 
 
 add_executable(meshReader ${root}/src/main.cpp)
-target_link_libraries(meshReader PRIVATE glfw glad)
+target_link_libraries(meshReader PRIVATE glfw glad assimp)
 
 enable_testing()
 add_executable(test_executable ${root}/src/test.cpp)
 target_link_libraries(test_executable PRIVATE  Catch2::Catch2WithMain glfw glad)
-add_test(NAME test_name COMMAND test_executable)
+add_test(NAME test_glfw COMMAND test_executable)
