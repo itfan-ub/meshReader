@@ -1,0 +1,1 @@
+if exist build rd /s build
